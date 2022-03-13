@@ -1,0 +1,198 @@
+<canvas id="canvas" style="max-height: 80vh; max-width: 80vw" />
+
+<script defer>
+  const polygons = [
+    {
+      n: 10,
+      r: 1.61803,
+      ir: 1.53884,
+      width: 3.23607,
+      height: 3.07768,
+      center: { x: 0, y: 1.53884 },
+      points: [
+        { x: -0.5, y: 0 },
+        { x: 0.5, y: 0 },
+        { x: 1.30902, y: 0.587785 },
+        { x: 1.61803, y: 1.53884 },
+        { x: 1.30902, y: 2.4899 },
+        { x: 0.5, y: 3.07768 },
+        { x: -0.5, y: 3.07768 },
+        { x: -1.30902, y: 2.4899 },
+        { x: -1.61803, y: 1.53884 },
+        { x: -1.30902, y: 0.587785 }
+      ]
+    },
+    {
+      n: 9,
+      r: 1.4619,
+      ir: 1.37374,
+      width: 2.87939,
+      height: 2.83564,
+      center: { x: 0, y: 4.4955 },
+      points: [
+        { x: -0.5, y: 3.12177 },
+        { x: 0.5, y: 3.12177 },
+        { x: 1.26604, y: 3.76455 },
+        { x: 1.43969, y: 4.74936 },
+        { x: 0.939693, y: 5.61539 },
+        { x: 4.47578e-16, y: 5.95741 },
+        { x: -0.939693, y: 5.61539 },
+        { x: -1.43969, y: 4.74936 },
+        { x: -1.26604, y: 3.76455 }
+      ]
+    },
+    {
+      n: 6,
+      r: 1,
+      ir: 0.866025,
+      width: 2,
+      height: 1.73205,
+      center: { x: 0, y: 6.77935 },
+      points: [
+        { x: -0.5, y: 5.91332 },
+        { x: 0.5, y: 5.91332 },
+        { x: 1, y: 6.77935 },
+        { x: 0.5, y: 7.64538 },
+        { x: -0.5, y: 7.64538 },
+        { x: -1, y: 6.77935 }
+      ]
+    },
+    {
+      n: 6,
+      r: 1,
+      ir: 0.866025,
+      width: 2,
+      height: 1.73205,
+      center: { x: 0, y: 8.5114 },
+      points: [
+        { x: -0.5, y: 7.64538 },
+        { x: 0.5, y: 7.64538 },
+        { x: 1, y: 8.5114 },
+        { x: 0.5, y: 9.37743 },
+        { x: -0.5, y: 9.37743 },
+        { x: -1, y: 8.5114 }
+      ]
+    },
+    {
+      n: 5,
+      r: 0.850651,
+      ir: 0.688191,
+      width: 1.61803,
+      height: 1.53884,
+      center: { x: 0, y: 10.1468 },
+      points: [
+        { x: -0.5, y: 9.45866 },
+        { x: 0.5, y: 9.45866 },
+        { x: 0.809017, y: 10.4097 },
+        { x: 2.60437e-16, y: 10.9975 },
+        { x: -0.809017, y: 10.4097 }
+      ]
+    },
+    {
+      n: 4,
+      r: 0.707107,
+      ir: 0.5,
+      width: 1,
+      height: 1,
+      center: { x: 0, y: 11.4163 },
+      points: [
+        { x: -0.5, y: 10.9163 },
+        { x: 0.5, y: 10.9163 },
+        { x: 0.5, y: 11.9163 },
+        { x: -0.5, y: 11.9163 }
+      ]
+    },
+    {
+      n: 4,
+      r: 0.707107,
+      ir: 0.5,
+      width: 1,
+      height: 1,
+      center: { x: 0, y: 12.4163 },
+      points: [
+        { x: -0.5, y: 11.9163 },
+        { x: 0.5, y: 11.9163 },
+        { x: 0.5, y: 12.9163 },
+        { x: -0.5, y: 12.9163 }
+      ]
+    },
+    {
+      n: 4,
+      r: 0.707107,
+      ir: 0.5,
+      width: 1,
+      height: 1,
+      center: { x: 0, y: 13.4163 },
+      points: [
+        { x: -0.5, y: 12.9163 },
+        { x: 0.5, y: 12.9163 },
+        { x: 0.5, y: 13.9163 },
+        { x: -0.5, y: 13.9163 }
+      ]
+    },
+    {
+      n: 3,
+      r: 0.57735,
+      ir: 0.288675,
+      width: 1,
+      height: 0.866025,
+      center: { x: 0, y: 14.3493 },
+      points: [
+        { x: -0.5, y: 14.0606 },
+        { x: 0.5, y: 14.0606 },
+        { x: 1.76763e-16, y: 14.9266 }
+      ]
+    },
+    {
+      n: 3,
+      r: 0.57735,
+      ir: 0.288675,
+      width: 1,
+      height: 0.866025,
+      center: { x: 0, y: 15.2153 },
+      points: [
+        { x: -0.5, y: 14.9266 },
+        { x: 0.5, y: 14.9266 },
+        { x: 1.76763e-16, y: 15.7927 }
+      ]
+    }
+  ];
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const WIDTH = 20;
+  const HEIGHT = 20;
+  const SCALE = 100;
+  canvas.width = WIDTH * SCALE
+  canvas.height = HEIGHT * SCALE
+
+  ctx.fillStyle = "#5698ae";
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+  ctx.save()
+  ctx.translate(WIDTH * 0.5 * SCALE, HEIGHT * 0.1 * SCALE);
+
+  for (const poly of polygons) {
+    ctx.fillStyle = "#ff0000";
+
+    for (const i in poly.points) {
+      const p = poly.points[i];
+      console.log(p)
+      if (i == 0) {
+        ctx.moveTo(p.x * SCALE, p.y * SCALE);
+      } else {
+        ctx.lineTo(p.x * SCALE, p.y * SCALE);
+      }
+    }
+    ctx.closePath();
+    ctx.lineWidth = 20;
+    ctx.lineJoin = 'round';
+    ctx.fillStyle = "#5698ae";
+    ctx.stroke();
+    ctx.fillStyle = "#FF98ae";
+    ctx.fill();
+  }
+
+
+  ctx.restore()
+</script>
