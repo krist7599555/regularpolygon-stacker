@@ -11,10 +11,15 @@ public:
   double x;
   double y;
   Point(double _x, double _y): x(_x), y(_y) {}
-  friend Point operator + (const Point& lhs, const Point& rhs) { return Point(lhs.x + rhs.x, lhs.y + rhs.y); }
-  friend Point operator * (const double& scala, const Point& point) { return Point(point.x * scala, point.y * scala); }
-  friend Point operator * (const Point& point, const double& scala) { return Point(point.x * scala, point.y * scala); }
-  
+  friend Point operator + (const Point& lhs, const Point& rhs) {
+    return Point(lhs.x + rhs.x, lhs.y + rhs.y);
+  }
+  friend Point operator * (const double& scala, const Point& point) {
+    return Point(point.x * scala, point.y * scala);
+  }
+  friend Point operator * (const Point& point, const double& scala) {
+    return Point(point.x * scala, point.y * scala);
+  }
   static Point from_angle(double radius) {
     return Point(cos(radius), sin(radius));
   }
@@ -25,15 +30,15 @@ public:
 
 template<typename T>
 std::ostream& operator << (std::ostream& o, const std::vector<T>& vec) {
-  o << "[";
-  for (int i = 0; i < vec.size(); ++i) {
-    o << vec[i];
-    if (i < vec.size() - 1) {
-      o << ", ";
+    o << "[";
+    for (int i = 0; i < vec.size(); ++i) {
+      o << vec[i];
+      if (i < vec.size() - 1) {
+        o << ", ";
+      }
     }
+    return o << "]";
   }
-  return o << "]";
-}
 
 class RegularPolygon {
 public:
@@ -63,7 +68,7 @@ public:
   }
   std::vector<Point> to_points() const {
     std::vector<Point> res;
-    double starter_radius = (M_PI * 1.5) - (M_PI / n); // to made shape base is on x-axis
+    double starter_radius = (M_PI * 1.5) - (M_PI / n);
     for (int i = 0; i < n; ++i) {
       res.push_back(center + Point::from_angle(2.0 * M_PI / n * i + starter_radius) * circum_radius);
     }
@@ -83,7 +88,7 @@ public:
 
 int main () {
   std::string inp = "6031301721";
-  std::cin >> inp;
+  // std::cin >> inp;
   
   std::vector<RegularPolygon> polys;
   std::sort(inp.begin(), inp.end(), std::greater<char>());
@@ -91,9 +96,10 @@ int main () {
   for (char c : inp) {
     RegularPolygon poly(c - '0' + 3, 1.0);
     double height = poly.size().y;
-    y += height / 2;
+    double base_to_center = poly.in_radius();
+    y += base_to_center;
     poly.center.y = y;
-    y += height / 2;
+    y += height - base_to_center;
     polys.push_back(poly);
   }
   
